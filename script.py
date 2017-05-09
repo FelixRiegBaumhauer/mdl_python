@@ -38,6 +38,8 @@ def run(filename):
         if command[0] in THE_COMMANDS:
             args = command[1:]
 
+
+            #SPHERE
             if line == 'sphere':
                 add_sphere(edges,
                            float(args[0]),
@@ -50,6 +52,8 @@ def run(filename):
                 draw_polygons(edges, screen, color)
                 edges = []
 
+                
+            #TORUS 
             elif line == 'torus':
                 add_torus(edges,
                           float(args[0]),
@@ -63,6 +67,8 @@ def run(filename):
                 draw_polygons(edges, screen, color)
                 edges = []
 
+
+            #BOX
             elif line == "box":
                 add_box(edges,
                         float(args[0]),
@@ -76,6 +82,8 @@ def run(filename):
                 draw_polygons(edges, screen, color)
                 edges = []
 
+
+            #CIRCLE    
             elif line == "circle":
                 add_cicle(edges,
                           float(args[0]),
@@ -85,6 +93,8 @@ def run(filename):
                           step
                           )
 
+
+            #CURVES    
             elif line == "hermite" or line == "bezier":
                 add_curve(edges,
                           float(args[0]),
@@ -98,7 +108,9 @@ def run(filename):
                           step,
                           line
                           )
-                
+
+
+            #LINE
             elif line == "line":
                 add_edge(edges,
                          float(args[0]),
@@ -109,6 +121,9 @@ def run(filename):
                          float(args[5])
                          )
 
+
+
+            #SCALE
             elif line == "scale":
                 t = make_scale(float(args[0]),
                                float(args[1]),
@@ -117,6 +132,8 @@ def run(filename):
                 matrix_mult(systems[-1], t)
                 systems[-1] = [ x[:] for x in t]
 
+
+            #MOVE
             elif line == "move":
                 t = make_translate(float(args[0]),
                                    float(args[1]),
@@ -126,6 +143,7 @@ def run(filename):
                 systems[-1] = [x[:] for x in t]
 
 
+            #ROTATE
             elif line == "rotate":
                 theta = float(args[1]) * (math.pi / 180)
 
@@ -138,25 +156,32 @@ def run(filename):
                     matrix_mult(systems[-1:], t)
                     systems[-1] = [ x[:] for x in t]
 
+
+            #CLEAR
             elif line == "clear":
                 edges = []
 
+            #IDENT
             elif line == "ident":
                 ident(transform)
 
+            #APPLY
             elif line == "apply":
                 matrix_mult(transform, edges)
 
+            #PUSH
             elif line == "push":
                 systems.append( [ x[:] for x in systems[-1]])
 
+            #POP
             elif line == "pop":
                 systems.pop()
 
+            #DISPLAY
             elif line == "display": 
                 display(screen)
 
-
+            #SAVE
             elif line == "save":
                 save_extension(screen, args[0])
 
